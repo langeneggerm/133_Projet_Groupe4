@@ -5,10 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "T_Nerfs")
+@Table(name = "t_nerfs")
 public class Nerf {
 
     @Id
@@ -16,22 +17,23 @@ public class Nerf {
     @Column(name = "PK_Nerf")
     private Integer id;
     
-    @Column(name = "Nom", length = 100)
+    @Column(nullable = false, name = "Nom", length = 100)
     private String nom;
 
-    @Column(name = "Description", length = 200)
+    @Column(nullable = false, name = "Description", length = 200)
     private String description;
 
-    @Column(name = "TypeTir", length = 45)
+    @Column(nullable = false, name = "TypeTir", length = 45)
     private String typeTir;
 
-    @Column(name = "Prix")
+    @Column(nullable = false, name = "Prix")
     private double prix;
 
-    @Column(name = "Quantite")
+    @Column(nullable = false, name = "Quantite")
     private Integer quantite;
 
-    @Column(name = "Img")
+    @Lob
+    @Column(nullable = false, name = "Img", columnDefinition="BLOB")
     private byte[] img;
 
     // Getters et setters pour id
