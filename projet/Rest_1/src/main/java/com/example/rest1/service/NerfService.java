@@ -56,4 +56,18 @@ public class NerfService {
         return nerfRepository.findAll();
     }
 
+    @Transactional
+    public String sellOne(int id) {
+        Nerf nerf = nerfRepository.findById(id).orElse(null);
+        if(nerf == null){
+            return "Nerf not found";
+        } else if(nerf.getQuantite() == 0){
+            return "None in stock. Ask admin to rebuild the stock";
+        }
+        int stock = nerf.getQuantite();
+        nerf.setQuantite(stock - 1);
+        nerfRepository.save(nerf);
+        return "Nerf sold";
+    }
+
 }

@@ -41,4 +41,9 @@ public class Controller {
         return nerfService.changerPrixNerf(id, prix);
     }
 
+    @PutMapping("/sellOne")
+    public @ResponseBody String sellStock(@RequestParam Integer id){
+        return nerfService.sellOne(id);
+    }
+
 }
