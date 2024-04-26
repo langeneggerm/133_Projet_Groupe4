@@ -26,7 +26,7 @@ public class Commande {
     private Date DateCommande;
 
     @Column(name = "FK_Nerf")
-    private int fk_nerf;
+    private int fkNerf;
 
     @Column(name = "FK_User")
     private int fkUser;
@@ -49,11 +49,11 @@ public class Commande {
     }
 
     public int getFk_nerf() {
-        return this.fk_nerf;
+        return this.fkNerf;
     }
 
-    public void setFk_nerf(int fk_nerf) {
-        this.fk_nerf = fk_nerf;
+    public void setFk_nerf(int fkNerf) {
+        this.fkNerf = fkNerf;
     }
 
     public int getFk_user() {
