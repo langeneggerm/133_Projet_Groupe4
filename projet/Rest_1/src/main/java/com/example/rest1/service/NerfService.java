@@ -57,6 +57,11 @@ public class NerfService {
     }
 
     @Transactional
+    public Nerf getNerf(int id) {
+        return nerfRepository.findById(id).orElse(null);
+    }
+
+    @Transactional
     public String sellOne(int id) {
         Nerf nerf = nerfRepository.findById(id).orElse(null);
         if(nerf == null){

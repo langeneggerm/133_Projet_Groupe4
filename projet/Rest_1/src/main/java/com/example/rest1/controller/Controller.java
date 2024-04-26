@@ -21,9 +21,14 @@ public class Controller {
     }
 
     // Handler pour GET
-    @GetMapping("/getNerf")
-    public @ResponseBody Iterable<Nerf> getNerf() {
+    @GetMapping("/getAllNerf")
+    public @ResponseBody Iterable<Nerf> getAllNerf() {
         return nerfService.getAllNerf();
+    }
+
+    @GetMapping("/getNerf")
+    public @ResponseBody Nerf getNerf(@RequestParam Integer id) {
+        return nerfService.getNerf(id);
     }
 
     @PostMapping("/addNerf")
