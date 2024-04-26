@@ -2,6 +2,8 @@ package controller;
 
 import java.util.Date;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api_gw.services.Rest1Service;
 import com.example.api_gw.services.Rest2Service;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -95,7 +99,18 @@ public class Controller {
     public @ResponseBody ResponseEntity<String> achatNerf(HttpSession session, @RequestParam Date date, @RequestParam int idNerf, @RequestParam int idUser, @RequestParam double prix) {
         ResponseEntity<String> result = null;
         if(session.getAttribute("login") != null){
-                rest2.getUser(idUser).getBody();
+                String json = rest2.getUser(idUser).getBody();
+                try {
+                    JSONObject jsonObject = new JSONObject(json);
+                    String soldeJson = jsonObject.getString("solde");
+                    double solde = Double.parseDouble(soldeJson);
+                    if(solde >= prix){
+                        
+                    }
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
         } else {
             HttpStatus httpCode = HttpStatus.UNAUTHORIZED;
             result = new ResponseEntity<>("You are not logged in. Try again when logged!", httpCode);
