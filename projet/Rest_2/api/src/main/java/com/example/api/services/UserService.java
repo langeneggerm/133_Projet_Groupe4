@@ -22,7 +22,7 @@ public class UserService {
     }
 
     @Transactional
-    public String addNewUser(String mdp, int solde, String userName, int admin) {
+    public String addNewUser(String mdp, Double solde, String userName, int admin) {
         User newUser = new User();
         newUser.setMDP(mdp);
         newUser.setSolde(solde);
@@ -34,21 +34,21 @@ public class UserService {
     }
 
     @Transactional
-    public String setSoldeUser(int pk_user, int montant) {
+    public boolean  setSoldeUser(int pk_user, double montant) {
         User newUser = new User();
-
+boolean verif = false;
         Optional<User> optionalUser = UserRepo.findById(pk_user);
         if (optionalUser.isPresent()) {
             newUser = optionalUser.get();
-            int newSolde = newUser.getSolde() + montant;
+            double newSolde = newUser.getSolde() + montant;
             if (newSolde >= 0) {
                 newUser.setSolde(newSolde);
 
                 UserRepo.save(newUser);
-                return "Solde changé : " + newSolde;
+                verif = true;
             }
         }
-        return "Solde inchangé";
+        return verif ;
     }
 
     @Transactional

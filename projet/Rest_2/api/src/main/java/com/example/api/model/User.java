@@ -23,7 +23,7 @@ public class User {
     private String mdp;
 
     @Column(name = "Solde" , length = 50)
-    private int solde;
+    private double solde;
 
     @Column(name = "UserName", length = 50)
     private String userName;
@@ -47,11 +47,11 @@ public class User {
         this.mdp = MDP;
     }
 
-    public int getSolde(){
+    public double getSolde(){
         return solde;
     }
 
-    public void setSolde(int solde){
+    public void setSolde(Double solde){
         this.solde = solde;
     }
 
