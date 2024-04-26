@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.api.dto.CommandeDTO;
 import com.example.api.dto.UserDTO;
@@ -65,7 +66,21 @@ public class Controller {
     @PostMapping(path = "/login")
     public String postMethodName(@RequestParam int pk_user, @RequestParam String password) {
 
-        return userService.login(pk_user, password);
+        boolean verif =  userService.login(pk_user, password);
+        if(verif){
+            return "Connexion réussi !";
+        }else{
+            return "La connexion a échoué !";
+        }
+    }
+
+    @GetMapping(path = "/mdphash")
+       public @ResponseBody String getHash( @RequestParam String password) {
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+      String hashedPassword = bCryptPasswordEncoder.encode(password);
+      return hashedPassword;
+      
     }
 
 }

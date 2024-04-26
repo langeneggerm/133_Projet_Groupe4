@@ -3,6 +3,7 @@ package com.example.api.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.api.model.User;
@@ -64,19 +65,22 @@ public class UserService {
     }
 
     @Transactional
-    public String login(int pk_user, String password) {
+    public boolean login(int pk_user, String password) {
+        boolean verif = false;
         User newUser = new User();
 
         Optional<User> optionalUser = UserRepo.findById(pk_user);
         if (optionalUser.isPresent()) {
             newUser = optionalUser.get();
             String UserPassword = newUser.getMDP();
+            BCryptPasswordEncoder decodeur = new BCryptPasswordEncoder();
+
             // verifier password en comparant les hash
-            if (password.equals(UserPassword) ) {
-                return "Connection réussie !";
+            if (decodeur.matches(password, UserPassword)) {
+                verif = true;
             }
         }
-        return "Connection refusée, mot de passe ou nom d'utilisateur incorrect";
+        return verif;
 
     }
 
