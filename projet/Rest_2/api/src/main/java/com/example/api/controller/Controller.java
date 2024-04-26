@@ -17,6 +17,8 @@ import com.example.api.model.User;
 import com.example.api.repository.UserRepository;
 import com.example.api.services.CommandeService;
 import com.example.api.services.UserService;
+import com.google.gson.Gson;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,16 +41,21 @@ public class Controller {
     }
 
     @PostMapping(path = "/acheterNerf")
-    public @ResponseBody String addNewCommande(@RequestParam Date date, @RequestParam int fk_nerf,
+    public ResponseEntity<String> addNewCommande(@RequestParam Date date, @RequestParam int fk_nerf,
             @RequestParam int fk_user, @RequestParam int montant) {
-        userService.setSoldeUser(fk_user, montant);
-        return commandeService.addNewCommande(date, fk_nerf, fk_user);
+       if(userService.setSoldeUser(fk_user, montant)){
+       return ResponseEntity.ok(new Gson().toJson(commandeService.addNewCommande(date, fk_nerf, fk_user)));
+      
+       } else{
+        return ResponseEntity.badRequest().body("{\"message\": \"" + " erreur lors de l'achat" + "\"}");
+       }
+
     }
 
-    @GetMapping(path = "/getCommande")
-    public Iterable<CommandeDTO> getAllCommandes() {
+    @GetMapping(path = "/getCommandes")
+    public ResponseEntity<String> getAllCommandesByUser(@RequestParam int pk_user) {
         // This returns a JSON or XML with the users
-        return commandeService.findAllCommandes();
+        return ResponseEntity.ok(new Gson().toJson(commandeService.findAllCommandes(pk_user)));
     }
 
     @GetMapping(path = "/getUser")
@@ -58,13 +65,13 @@ public class Controller {
     }
 
     @PostMapping(path = "/changeSolde")
-    public @ResponseBody String changerSolde(@RequestParam int pk_user, @RequestParam int montant) {
+    public @ResponseBody boolean changerSolde(@RequestParam int pk_user, @RequestParam Double montant) {
 
         return userService.setSoldeUser(pk_user, montant);
     }
 
     @PostMapping(path = "/login")
-    public String postMethodName(@RequestParam int pk_user, @RequestParam String password) {
+    public String login(@RequestParam int pk_user, @RequestParam String password) {
 
         boolean verif =  userService.login(pk_user, password);
         if(verif){
@@ -72,15 +79,6 @@ public class Controller {
         }else{
             return "La connexion a échoué !";
         }
-    }
-
-    @GetMapping(path = "/mdphash")
-       public @ResponseBody String getHash( @RequestParam String password) {
-
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-      String hashedPassword = bCryptPasswordEncoder.encode(password);
-      return hashedPassword;
-      
     }
 
 }

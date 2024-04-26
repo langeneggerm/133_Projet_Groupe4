@@ -37,8 +37,9 @@ public class CommandeService {
         return "saved";
     }
 
-    public Iterable<CommandeDTO> findAllCommandes() {
-        Iterable<Commande> commandes = commandeRepo.findAll();
+    public Iterable<CommandeDTO> findAllCommandes(int pk_user) {
+        Iterable<Commande> commandes = commandeRepo.findByfkUser(pk_user);
+        ;
         List<CommandeDTO> commandesDTO = new ArrayList<>();
 
         for (Commande commande : commandes) {

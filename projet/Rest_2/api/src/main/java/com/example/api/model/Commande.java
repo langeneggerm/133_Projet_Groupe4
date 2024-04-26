@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 public class Commande {
     
     @Id
-    @Column(name = "PK_Commande", length = 50)
+    @Column(name = "PkCommande", length = 50)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
@@ -26,10 +26,10 @@ public class Commande {
     private Date DateCommande;
 
     @Column(name = "FK_Nerf")
-    private int fk_nerf;
+    private int fkNerf;
 
     @Column(name = "FK_User")
-    private int fk_user;
+    private int fkUser;
 
 
     public Integer getId() {
@@ -49,19 +49,19 @@ public class Commande {
     }
 
     public int getFk_nerf() {
-        return this.fk_nerf;
+        return this.fkNerf;
     }
 
-    public void setFk_nerf(int fk_nerf) {
-        this.fk_nerf = fk_nerf;
+    public void setFk_nerf(int fkNerf) {
+        this.fkNerf = fkNerf;
     }
 
     public int getFk_user() {
-        return this.fk_user;
+        return this.fkUser;
     }
 
-    public void setFk_user(int fk_user) {
-        this.fk_user = fk_user;
+    public void setFk_user(int fkUser) {
+        this.fkUser = fkUser;
     }
 
 }
