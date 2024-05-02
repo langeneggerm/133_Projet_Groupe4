@@ -47,7 +47,7 @@ public class Controller {
        return ResponseEntity.ok(new Gson().toJson(commandeService.addNewCommande(date, fk_nerf, fk_user)));
       
        } else{
-        return ResponseEntity.badRequest().body("{\"message\": \"" + " erreur lors de l'achat" + "\"}");
+        return ResponseEntity.badRequest().body(" erreur lors de l'achat" + "\"}");
        }
 
     }
@@ -65,9 +65,14 @@ public class Controller {
     }
 
     @PostMapping(path = "/changeSolde")
-    public @ResponseBody boolean changerSolde(@RequestParam int pk_user, @RequestParam Double montant) {
+    public ResponseEntity<String> changerSolde(@RequestParam int pk_user, @RequestParam Double montant) {
 
-        return userService.setSoldeUser(pk_user, montant);
+      if(userService.setSoldeUser(pk_user, pk_user)){
+        return ResponseEntity.ok(new Gson().toJson(new Object[]{true}));
+      }else{
+        return ResponseEntity.badRequest().body("Le montant est trop élevé");
+      }
+      
     }
 
     @PostMapping(path = "/login")
