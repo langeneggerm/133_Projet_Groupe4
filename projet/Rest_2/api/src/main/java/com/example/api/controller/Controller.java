@@ -42,7 +42,7 @@ public class Controller {
 
     @PostMapping(path = "/acheterNerf")
     public ResponseEntity<String> addNewCommande(@RequestParam Date date, @RequestParam int fk_nerf,
-            @RequestParam int fk_user, @RequestParam int montant) {
+            @RequestParam int fk_user, @RequestParam double montant) {
        if(userService.setSoldeUser(fk_user, montant)){
        return ResponseEntity.ok(new Gson().toJson(commandeService.addNewCommande(date, fk_nerf, fk_user)));
       
@@ -68,7 +68,7 @@ public class Controller {
     public ResponseEntity<String> changerSolde(@RequestParam int pk_user, @RequestParam Double montant) {
 
       if(userService.setSoldeUser(pk_user, pk_user)){
-        return ResponseEntity.ok(new Gson().toJson(new Object[]{true}));
+        return ResponseEntity.ok(new Gson().toJson(true));
       }else{
         return ResponseEntity.badRequest().body("Le montant est trop élevé");
       }
