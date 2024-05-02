@@ -3,7 +3,9 @@ FROM openjdk:17-jdk-alpine
 VOLUME /tmp
 ARG JAVA_OPTS
 ENV JAVA_OPTS=$JAVA_OPTS
-ENV DATABASE_URL=jdbc:mysql://mysql-nerf:3306/db_133_user
+#Conf Serv
+#ENV DATABASE_URL=jdbc:mysql://mysql-nerf:3306/db_133_user
+ENV DATABASE_URL=jdbc:mysql://host.docker.internal:3306/db_133_user
 COPY target/*.jar complete.jar
 EXPOSE 8082
 ENTRYPOINT exec java $JAVA_OPTS -jar complete.jar
