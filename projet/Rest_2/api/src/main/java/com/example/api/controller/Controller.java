@@ -76,13 +76,13 @@ public class Controller {
     }
 
     @PostMapping(path = "/login")
-    public String login(@RequestParam int pk_user, @RequestParam String password) {
+    public ResponseEntity<String> login(@RequestParam int pk_user, @RequestParam String password) {
 
         boolean verif =  userService.login(pk_user, password);
         if(verif){
-            return "Connexion réussi !";
+            return ResponseEntity.ok(new Gson().toJson(pk_user));
         }else{
-            return "La connexion a échoué !";
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
