@@ -6,29 +6,25 @@ import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import jakarta.transaction.Transactional;
 
 public class Rest1Service{
     private final RestTemplate restTemplate = new RestTemplate();
-    private final static String restUrl = "http://localhost:8080";
+    private final static String restUrl = "http://localhost:8081";
     
     public Rest1Service(){
     }
 
-    @Transactional
     public String getAllNerf() {
         String jsonResponse = restTemplate.getForObject(restUrl + "/getAllNerf", String.class);
         return jsonResponse;
     }
     //trouver comment faire pour envoyer un body avec restTemplate
 
-    @Transactional
     public ResponseEntity<String> getNerf(int id) {
         ResponseEntity<String> jsonResponse = restTemplate.getForEntity(restUrl + "/getANerf?id=" + id, String.class);
         return jsonResponse;
     }
 
-    @Transactional
     public ResponseEntity<String> fullNerfStock(int id, int addedQty) {
         Map<String, Integer> body = new HashMap<>();
         body.put("id", id);
@@ -37,7 +33,6 @@ public class Rest1Service{
         return jsonResponse;
     }
 
-    @Transactional
     public ResponseEntity<String> addNewNerf(String nom, String description, String typeTir, double prix, int quantite, byte[] img) {
         Map<String, Object> body = new HashMap<>();
         body.put("nom", nom);
@@ -50,7 +45,6 @@ public class Rest1Service{
         return jsonResponse;
     }
 
-    @Transactional
     public ResponseEntity<String> changerPrixNerf(int id, double newPrice) {
         Map<String, Object> body = new HashMap<>();
         body.put("id", id);
@@ -59,7 +53,6 @@ public class Rest1Service{
         return jsonResponse;
     }
 
-    @Transactional
     public ResponseEntity<String> sellOne(int id) {
         Map<String, Integer> body = new HashMap<>();
         body.put("id", id);

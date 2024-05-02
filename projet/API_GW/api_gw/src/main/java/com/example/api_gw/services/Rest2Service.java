@@ -7,16 +7,14 @@ import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import jakarta.transaction.Transactional;
 
 public class Rest2Service{
     private final RestTemplate restTemplate = new RestTemplate();
-    private final static String restUrl = "http://localhost:8080"; //à changer quand mis en place
+    private final static String restUrl = "http://localhost:8082"; //à changer quand mis en place
     
     public Rest2Service(){
     }
 
-    @Transactional
     public ResponseEntity<String> addNewCommande(Date date, int idNerf, int user, double prix) {
         Map<String, Object> body = new HashMap<>();
         body.put("date", date);
@@ -28,13 +26,11 @@ public class Rest2Service{
     }
     //trouver comment faire pour envoyer un body avec restTemplate
 
-    @Transactional
     public ResponseEntity<String> getUser(int id) {
         ResponseEntity<String> jsonResponse = restTemplate.getForEntity(restUrl + "/getUser?pk_user=" + id, String.class);
         return jsonResponse;
     }
 
-    @Transactional
     public ResponseEntity<String> changerSolde(int id, double prix) {
         Map<String, Object> body = new HashMap<>();
         body.put("pk_user", id);
@@ -43,7 +39,6 @@ public class Rest2Service{
         return jsonResponse;
     }
 
-    @Transactional
     public ResponseEntity<String> changerPrixNerf(int id, double newPrice) {
         Map<String, Object> body = new HashMap<>();
         body.put("id", id);
@@ -52,7 +47,6 @@ public class Rest2Service{
         return jsonResponse;
     }
 
-    @Transactional
     public ResponseEntity<String> findAllCommandes(int id) {
         Map<String, Integer> body = new HashMap<>();
         body.put("pk_user", id);
@@ -60,7 +54,6 @@ public class Rest2Service{
         return jsonResponse;
     }
 
-    @Transactional
     public ResponseEntity<String> login(int id, String mdp) {
         Map<String, Object> body = new HashMap<>();
         body.put("pk_user", id);
@@ -69,7 +62,6 @@ public class Rest2Service{
         return jsonResponse;
     }
 
-    @Transactional
     public ResponseEntity<String> getHash(String mdp) {
         Map<String, String> body = new HashMap<>();
         body.put("password", mdp);

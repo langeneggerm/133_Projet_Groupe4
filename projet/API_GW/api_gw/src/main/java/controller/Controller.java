@@ -2,10 +2,9 @@ package controller;
 
 import java.util.Date;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api_gw.services.Rest1Service;
 import com.example.api_gw.services.Rest2Service;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -98,22 +95,35 @@ public class Controller {
     @PostMapping("/achatNerf")
     public @ResponseBody ResponseEntity<String> achatNerf(HttpSession session, @RequestParam Date date, @RequestParam int idNerf, @RequestParam int idUser, @RequestParam double prix) {
         ResponseEntity<String> result = null;
+        ResponseEntity<String> temp = null;
         if(session.getAttribute("login") != null){
-                String json = rest2.getUser(idUser).getBody();
-                try {
-                    JSONObject jsonObject = new JSONObject(json);
-                    String soldeJson = jsonObject.getString("solde");
-                    double solde = Double.parseDouble(soldeJson);
-                    if(solde >= prix){
-                        
+            double prixNeg = -1 * prix;
+                temp = rest2.changerSolde(idUser, prixNeg);
+                if(temp.getBody().equals("true")){
+                    temp = rest1.sellOne(idNerf);
+                    if(!(temp.getStatusCode() != HttpStatusCode.valueOf(200))){
+                        Date today = new Date();
+                        temp = rest2.addNewCommande(today, idNerf, idUser, prixNeg);
                     }
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
                 }
         } else {
             HttpStatus httpCode = HttpStatus.UNAUTHORIZED;
-            result = new ResponseEntity<>("You are not logged in. Try again when logged!", httpCode);
+            temp = new ResponseEntity<>("You are not logged in. Try again when logged!", httpCode);
+        }
+        if(temp.getStatusCode() != HttpStatusCode.valueOf(200)){
+            result = temp;
+        } else {
+            result = new ResponseEntity<>(HttpStatusCode.valueOf(200));
+        }
+        return result;
+    }
+
+    @GetMapping("/getCommandes")
+    public @ResponseBody ResponseEntity<String> getAllCommandes(HttpSession session){
+        ResponseEntity<String> result = null;
+        if(session.getAttribute("login") != null){
+            int idUser = Integer.parseInt(session.getAttribute("idUser").toString());
+            result = rest2.findAllCommandes(idUser);
         }
         return result;
     }
