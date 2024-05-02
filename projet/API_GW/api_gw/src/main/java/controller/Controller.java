@@ -31,6 +31,11 @@ public class Controller {
         this.rest2 = rest2;
     };
 
+    @GetMapping("/")
+    public @ResponseBody String base() {
+        return "test";
+    }
+
     @GetMapping("/getAllNerf")
     public @ResponseBody String getAllNerf() {
         return rest1.getAllNerf();

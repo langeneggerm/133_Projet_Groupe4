@@ -21,7 +21,7 @@ public class Rest1Service{
     //trouver comment faire pour envoyer un body avec restTemplate
 
     public ResponseEntity<String> getNerf(int id) {
-        ResponseEntity<String> jsonResponse = restTemplate.getForEntity(restUrl + "/getANerf?id=" + id, String.class);
+        ResponseEntity<String> jsonResponse = restTemplate.getForEntity(restUrl + "/getNerf?id=" + id, String.class);
         return jsonResponse;
     }
 
