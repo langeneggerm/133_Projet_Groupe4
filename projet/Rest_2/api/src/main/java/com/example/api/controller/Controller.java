@@ -47,7 +47,7 @@ public class Controller {
        return ResponseEntity.ok(new Gson().toJson(commandeService.addNewCommande(date, fk_nerf, fk_user)));
       
        } else{
-        return ResponseEntity.badRequest().body(" erreur lors de l'achat" + "\"}");
+        return ResponseEntity.badRequest().body(" erreur lors de l'achat");
        }
 
     }
