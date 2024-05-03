@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magasin de Nerf</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <header>
+        <h1>Magasin de Nerf</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Accueil</a></li>
+                <li><a href="stock.html">Stock</a></li>
+                <li><b><a href="#">login</a></b></li>
+                <li><a href="ajouterNerf.html">Ajouter Nerf</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Interface de connexion -->
+    <div class="login-container">
+        <h2>Connexion</h2>
+        <form action="login.php" method="POST">
+            <div class="input-group">
+                <label for="username">Nom d'utilisateur :</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" id="btnConnect">Se connecter</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Magasin de Nerf. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
