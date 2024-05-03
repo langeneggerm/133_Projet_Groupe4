@@ -143,7 +143,7 @@ public class Controller {
     }
 
     @PostMapping("/login")
-    public @ResponseBody ResponseEntity<String> login(HttpSession session, String username, String pwd) {
+    public @ResponseBody ResponseEntity<String> login(HttpSession session, @RequestParam String username, @RequestParam String pwd) {
         ResponseEntity<String> result = null;
         if (session.getAttribute("login") == null) {
             result = rest2.login(username, pwd);
