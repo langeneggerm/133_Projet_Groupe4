@@ -1,4 +1,4 @@
-package controller;
+package com.example.api_gw.controller;
 
 import java.util.Date;
 
@@ -26,9 +26,9 @@ public class Controller {
     private final Rest2Service rest2;
     
     @Autowired
-    public Controller(Rest1Service rest1, Rest2Service rest2){
-        this.rest1 = rest1;
-        this.rest2 = rest2;
+    public Controller(){
+        rest1 = new Rest1Service();
+        rest2 = new Rest2Service();
     };
 
     @GetMapping("/")

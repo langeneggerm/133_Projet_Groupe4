@@ -8,10 +8,11 @@ import org.springframework.web.client.RestTemplate;
 
 
 public class Rest1Service{
-    private final RestTemplate restTemplate = new RestTemplate();
+    private RestTemplate restTemplate;
     private final static String restUrl = "http://localhost:8081";
     
     public Rest1Service(){
+        restTemplate = new RestTemplate();
     }
 
     public String getAllNerf() {

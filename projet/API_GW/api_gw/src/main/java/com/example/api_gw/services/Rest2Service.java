@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 public class Rest2Service{
     private final RestTemplate restTemplate = new RestTemplate();
     private final static String restUrl = "http://localhost:8082"; //à changer quand mis en place
-    
+    //test
     public Rest2Service(){
     }
 
