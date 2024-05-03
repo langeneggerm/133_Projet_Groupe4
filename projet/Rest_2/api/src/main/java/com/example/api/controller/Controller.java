@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.example.api.dto.CommandeDTO;
-import com.example.api.dto.UserDTO;
-import com.example.api.model.User;
-import com.example.api.repository.UserRepository;
 import com.example.api.services.CommandeService;
 import com.example.api.services.UserService;
 import com.google.gson.Gson;
@@ -59,9 +55,9 @@ public class Controller {
     }
 
     @GetMapping(path = "/getUser")
-    public @ResponseBody User getUser(@RequestParam int pk_user) {
+    public ResponseEntity<String> getUser(@RequestParam int pk_user) {
 
-        return userService.getUser(pk_user);
+     return ResponseEntity.ok(new Gson().toJson(userService.getUser(pk_user)));
     }
 
     @PostMapping(path = "/changeSolde")

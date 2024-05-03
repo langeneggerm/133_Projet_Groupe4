@@ -59,6 +59,7 @@ boolean verif = false;
         Optional<User> optionalUser = UserRepo.findById(pk_user);
         if (optionalUser.isPresent()) {
             newUser = optionalUser.get();
+          //  newUser.setMDP("");
             return newUser;
         }
         return null;
@@ -67,17 +68,17 @@ boolean verif = false;
     @Transactional
     public int login(String nom_user, String password) {
         int reponse = -1;
-        User newUser = new User();
+        User newUser = UserRepo.findByUsername(nom_user);
 
-        Optional<User> optionalUser = UserRepo.findByUserName(nom_user);
-        if (optionalUser.isPresent()) {
-            newUser = optionalUser.get();
+       // Optional<User> optionalUser = UserRepo.findByUserName(nom_user);
+        if (newUser!= null) {
+          //  newUser = optionalUser.get();
             String UserPassword = newUser.getMDP();
             BCryptPasswordEncoder decodeur = new BCryptPasswordEncoder();
 
             // verifier password en comparant les hash
             if (decodeur.matches(password, UserPassword)) {
-                reponse = newUser.getId();
+                reponse = newUser.getPk();
             }
         }
         return reponse;
