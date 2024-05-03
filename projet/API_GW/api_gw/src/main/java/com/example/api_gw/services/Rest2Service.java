@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class Rest2Service{
     private final RestTemplate restTemplate = new RestTemplate();
-    private final static String restUrl = "http://localhost:8082"; //à changer quand mis en place
+    private final static String restUrl = "http://host.docker.internal:8082"; //à changer quand mis en place
     //test
     public Rest2Service(){
     }
@@ -54,9 +54,9 @@ public class Rest2Service{
         return jsonResponse;
     }
 
-    public ResponseEntity<String> login(int id, String mdp) {
+    public ResponseEntity<String> login(String username, String mdp) {
         Map<String, Object> body = new HashMap<>();
-        body.put("pk_user", id);
+        body.put("username", username);
         body.put("password", mdp);
         ResponseEntity<String> jsonResponse = restTemplate.postForEntity(restUrl + "/login", body, String.class);
         return jsonResponse;
