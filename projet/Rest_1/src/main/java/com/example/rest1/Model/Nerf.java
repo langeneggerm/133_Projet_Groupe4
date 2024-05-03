@@ -33,7 +33,7 @@ public class Nerf {
     private Integer quantite;
 
     @Lob
-    @Column(nullable = false, name = "Img", columnDefinition="BLOB")
+    @Column(nullable = true, name = "Img", columnDefinition="LONGBLOB")
     private byte[] img;
 
     // Getters et setters pour id
