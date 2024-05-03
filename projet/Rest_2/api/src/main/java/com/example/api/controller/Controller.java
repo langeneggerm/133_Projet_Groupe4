@@ -76,11 +76,11 @@ public class Controller {
     }
 
     @PostMapping(path = "/login")
-    public ResponseEntity<String> login(@RequestParam int pk_user, @RequestParam String password) {
+    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
 
-        boolean verif =  userService.login(pk_user, password);
-        if(verif){
-            return ResponseEntity.ok(new Gson().toJson(pk_user));
+        int verif =  userService.login(username, password);
+        if(verif>0){
+            return ResponseEntity.ok(new Gson().toJson(verif));
         }else{
             return ResponseEntity.badRequest().body(null);
         }

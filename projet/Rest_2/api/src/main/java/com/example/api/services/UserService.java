@@ -65,11 +65,11 @@ boolean verif = false;
     }
 
     @Transactional
-    public boolean login(int pk_user, String password) {
-        boolean verif = false;
+    public int login(String nom_user, String password) {
+        int reponse = -1;
         User newUser = new User();
 
-        Optional<User> optionalUser = UserRepo.findById(pk_user);
+        Optional<User> optionalUser = UserRepo.findByUserName(nom_user);
         if (optionalUser.isPresent()) {
             newUser = optionalUser.get();
             String UserPassword = newUser.getMDP();
@@ -77,10 +77,10 @@ boolean verif = false;
 
             // verifier password en comparant les hash
             if (decodeur.matches(password, UserPassword)) {
-                verif = true;
+                reponse = newUser.getId();
             }
         }
-        return verif;
+        return reponse;
 
     }
 
