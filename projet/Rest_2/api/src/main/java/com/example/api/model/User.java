@@ -15,36 +15,36 @@ import jakarta.persistence.Table;
 public class User {
     
     @Id
-    @Column(name = "PK_User", length = 50)
+    @Column(name = "pk_user", length = 50)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer pk;
 
-    @Column(name = "MDP", length = 100)
+    @Column(name = "mdp", length = 250)
     private String mdp;
 
-    @Column(name = "Solde" , length = 50)
+    @Column(name = "solde" , length = 50)
     private double solde;
 
-    @Column(name = "UserName", length = 50)
-    private String userName;
+    @Column(name = "username", length = 50)
+    private String username;
 
-    @Column(name = "Admin", length = 50)
+    @Column(name = "admin", length = 50)
     private int admin;
 
-    public int getId(){
-        return id;
+    public int getPk(){
+        return pk;
     }
 
-    public void setId(int pk){
-        this.id = pk;
+    public void setPk(int pk){
+        this.pk = pk;
     }
 
     public String getMDP(){
         return mdp;
     }
     
-    public void setMDP(String MDP){
-        this.mdp = MDP;
+    public void setMDP(String mdp){
+        this.mdp = mdp;
     }
 
     public double getSolde(){
@@ -56,11 +56,11 @@ public class User {
     }
 
     public String getuserName(){
-        return userName;
+        return username;
     }
 
-    public void setuserName(String UserName){
-this.userName = UserName;
+    public void setuserName(String useruame){
+this.username = useruame;
     }
 
     public int getAdmin(){
