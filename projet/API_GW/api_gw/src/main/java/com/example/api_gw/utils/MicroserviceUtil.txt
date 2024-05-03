@@ -1,0 +1,50 @@
+package com.example.api_gw.utils;
+
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestTemplate;
+
+@Component
+public class MicroserviceUtil {
+
+    private final RestTemplate restTemplate;
+
+    public MicroserviceUtil(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    private ResponseEntity<String> requestToMicroservice(String url, HttpMethod method, HttpEntity httpEntity) {
+        try {
+            return restTemplate.exchange(url, method, httpEntity == null ? null : httpEntity, String.class);
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsString());
+        }
+
+    }
+
+    public ResponseEntity<String> getToMicroservice(String url) {
+        return this.requestToMicroservice(url, HttpMethod.GET, null);
+    }
+
+    public ResponseEntity<String> postToMicroservice(String url, Object request) {
+        HttpHeaders headers = new HttpHeaders();
+        // Add any necessary headers (e.g., authentication tokens)
+
+        // Content Type
+        headers.add("Content-Type", "application/json");
+
+        HttpEntity<Object> httpEntity = new HttpEntity<>(request, headers);
+        return this.requestToMicroservice(url, HttpMethod.POST, httpEntity);
+    }
+
+    public ResponseEntity<String> deleteToMicroservice(String url) {
+        return this.requestToMicroservice(url, HttpMethod.DELETE, null);
+    }
+}
+

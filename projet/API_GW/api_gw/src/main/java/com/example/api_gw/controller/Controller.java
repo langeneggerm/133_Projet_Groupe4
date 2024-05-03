@@ -9,10 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.api_gw.body.Login;
 import com.example.api_gw.services.Rest1Service;
 import com.example.api_gw.services.Rest2Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -143,10 +145,12 @@ public class Controller {
     }
 
     @PostMapping("/login")
-    public @ResponseBody ResponseEntity<String> login(HttpSession session, @RequestParam String username, @RequestParam String pwd) {
+    public  ResponseEntity<String> login( @RequestBody Login credentials,HttpSession session) {
+      //  MicroserviceUtil service = new MicroserviceUtil(null);
+        
         ResponseEntity<String> result = null;
         if (session.getAttribute("login") == null) {
-            result = rest2.login(username, pwd);
+         result = rest2.login(credentials.getUsername(), credentials.getPassword());
             if (result.getStatusCode().equals(HttpStatus.ACCEPTED)) {
                 session.setAttribute("login", "true");
                 int bodyToInt = Integer.parseInt(result.getBody());

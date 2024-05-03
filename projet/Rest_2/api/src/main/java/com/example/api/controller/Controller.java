@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.example.api.body.Login;
 import com.example.api.services.CommandeService;
 import com.example.api.services.UserService;
 import com.google.gson.Gson;
@@ -72,9 +73,9 @@ public class Controller {
     }
 
     @PostMapping(path = "/login")
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<String> login(@RequestBody Login credentials) {
 
-        int verif =  userService.login(username, password);
+        int verif =  userService.login(credentials.getUsername(), credentials.getPassword());
         if(verif>0){
             return ResponseEntity.ok(new Gson().toJson(verif));
         }else{
