@@ -1,13 +1,11 @@
 package com.example.api.services;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.api.dto.CommandeDTO;
 import com.example.api.model.Commande;
 import com.example.api.repository.CommandeRepository;
 import com.example.api.repository.UserRepository;
@@ -37,20 +35,9 @@ public class CommandeService {
         return "saved";
     }
 
-    public Iterable<CommandeDTO> findAllCommandes(int pk_user) {
-        Iterable<Commande> commandes = commandeRepo.findByfkUser(pk_user);
-        ;
-        List<CommandeDTO> commandesDTO = new ArrayList<>();
-
-        for (Commande commande : commandes) {
-            CommandeDTO commandeDTO = new CommandeDTO(
-                    commande.getId(),
-                    commande.getDateCommande(),
-                    commande.getFk_nerf(),
-                    commande.getFk_user());
-            commandesDTO.add(commandeDTO);
-        }
-        return commandesDTO;
+    public Iterable<Commande> findAllCommandes(int pk_user) {
+       return commandeRepo.findByfkUser(pk_user);
+            
     }
 
 }
