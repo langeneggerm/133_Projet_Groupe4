@@ -29,7 +29,7 @@ public class Controller {
 
     @GetMapping("/")
     public String getNothing() {
-        return "test";
+        return "Page par défaut";
     }
 
     @PostMapping(path = "/acheterNerf")
