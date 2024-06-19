@@ -79,7 +79,7 @@ class HttpService {
         })
     }
 
-    ajouterNerf(nom, description, typeTir, prix, quantite, img, successCallback, errorCallback) {
+    ajouterNerf(nom, description, typeTir, prix, quantite, successCallback, errorCallback) {
         console.log("ajout de nerf");
         $.ajax({
             type: "POST",
@@ -89,7 +89,7 @@ class HttpService {
                 description: description,
                 typeTir: typeTir,
                 quantite: quantite, 
-                img: img,
+                img: null,
                 prix: prix
             },
             success: successCallback,
