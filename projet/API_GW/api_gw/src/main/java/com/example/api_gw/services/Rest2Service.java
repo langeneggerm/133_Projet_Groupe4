@@ -58,8 +58,8 @@ public class Rest2Service{
 
     public ResponseEntity<String> login(String username, String mdp) {
         Map<String, String> body = new HashMap<>();
-        body.put("username", username);
-        body.put("password", mdp);
+        body.put("'username'", username);
+        body.put("'password'", mdp);
         ResponseEntity<String> jsonResponse = restTemplate.postForEntity(restUrl + "/login", body, String.class);
         return jsonResponse;
     }

@@ -6,7 +6,7 @@ $(document).ready(function() {
 class AjoutCtrl{
 
     constructor(){
-        $("#addBtn").on('click', this.add);
+        $("#addBtn").on('click', AjoutCtrl.add);
     }
 
     static add(){

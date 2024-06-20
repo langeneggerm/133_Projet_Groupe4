@@ -48,7 +48,7 @@ class StockCtrl {
         button2.innerText = "Changer prix";
         button2.setAttribute("data-id", nerf.id);
         button2.setAttribute("data-prix", nerf.prix);
-        button.onclick = function () {
+        button2.onclick = function () {
           StockCtrl.changerPrix(nerf.id, nerf.prix);
         };
         productDiv.appendChild(button2);

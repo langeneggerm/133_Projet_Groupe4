@@ -12,6 +12,7 @@ class LoginCtrl{
     static login(){
         var username = $("#username").val();
         var pwd = $("#password").val();
+        alert(username + " " + pwd);
         http.login(username, pwd, LoginCtrl.loginSuccess, LoginCtrl.error);
     }
 

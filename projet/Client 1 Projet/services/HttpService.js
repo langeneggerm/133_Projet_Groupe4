@@ -29,16 +29,18 @@ class HttpService {
 
     login(login, mdp, successCallback, errorCallback) {
         console.log("connect");
+        console.log(data)
         $.ajax({
             type: "POST",
-            url: this.BASE_URL + "login",
+            url: BASE_URL + "login",
             data: {
                 username: login,
-                pwd: mdp
+                password: mdp
             },
             success: successCallback,
             error: errorCallback
         })
+    
     }
 
     deconnecter(successCallback, errorCallback) {

@@ -75,7 +75,7 @@ public class Controller {
          if(verif>0){
             return ResponseEntity.ok(new Gson().toJson(verif));
         }else{
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body("test");
         }
     }
 

@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 //test
 
-@CrossOrigin(origins = {"https://nevesantoniog.emf-informatique.ch"}, allowCredentials = "true")
+@CrossOrigin(origins = { "https://nevesantoniog.emf-informatique.ch" }, allowCredentials = "true")
 @RestController
 public class Controller {
 
@@ -147,18 +147,17 @@ public class Controller {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login( @RequestBody Login credentials,HttpSession session) {
-      //  MicroserviceUtil service = new MicroserviceUtil(null);
-        
+    public ResponseEntity<String> login(@RequestBody String username,@RequestBody String password, HttpSession session) {
+        // MicroserviceUtil service = new MicroserviceUtil(null);
         ResponseEntity<String> result = null;
         if (session.getAttribute("login") == null) {
-         result = rest2.login(credentials.getUsername(), credentials.getPassword());
+            result = rest2.login(username, password);
             if (result.getStatusCode().equals(HttpStatus.ACCEPTED)) {
                 session.setAttribute("login", "true");
-                int bodyToInt = Integer.parseInt(result.getBody());
-                ResponseEntity<String> user = rest2.getUser(bodyToInt);
-                ObjectMapper map = new ObjectMapper();
-                try {
+                // int bodyToInt = Integer.parseInt(result.getBody());
+                // ResponseEntity<String> user = rest2.getUser(bodyToInt);
+                // ObjectMapper map = new ObjectMapper();
+              /*  try {
                     JsonNode json = map.readTree(user.getBody());
                     int isAdmin = json.get("admin").asInt();
                     int idUser = json.get("id").asInt();
@@ -166,7 +165,7 @@ public class Controller {
                     session.setAttribute("isAdm", isAdmin);
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
-                }
+                } */
             }
         } else {
             result = new ResponseEntity<>("You already are logged in. Please logout.", HttpStatus.CONFLICT);
@@ -177,7 +176,7 @@ public class Controller {
     @PostMapping("/logout")
     public @ResponseBody ResponseEntity<String> logout(HttpSession session) {
         ResponseEntity<String> result = null;
-        if(session.getAttribute("login") != null){
+        if (session.getAttribute("login") != null) {
             session.invalidate();
             result = new ResponseEntity<>("You logged out succesfully.", HttpStatus.ACCEPTED);
         } else {
