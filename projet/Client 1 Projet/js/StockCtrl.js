@@ -32,6 +32,9 @@ class StockCtrl {
         stockP = document.createElement("p");
         stockP.innerHTML = `Stock: <span id="stock${id}">${nerf.quantite}</span>`;
         productDiv.appendChild(stockP);
+        prixP = document.createElement("p");
+        prixP.innerHTML = `Prix: <span >${nerf.prix}</span>`;
+        productDiv.appendChild(prixP);
         button = document.createElement("button");
         button.innerText = "Ajouter Stock";
         button.id = nerf.id;
@@ -44,7 +47,7 @@ class StockCtrl {
         button2.setAttribute("data-id", nerf.id);
         button2.setAttribute("data-prix", nerf.prix);
         button.onclick = function () {
-          StockCtrl.ajouterStock(nerf.id);
+          StockCtrl.changerPrix(nerf.id, nerf.prix);
         };
         productDiv.appendChild(button);
         result = true;
@@ -66,6 +69,7 @@ class StockCtrl {
   }
 
   static ajouterStock(id) {
+    console.log(id);
     http.renouvelerStock(
       id,
       10,
@@ -76,6 +80,18 @@ class StockCtrl {
 
   static ajoutStockSuccessCallback(data) {
     prompt("Le stock a été mis à jour!");
+    StockCtrl.chargeCatalogue;
+  }
+
+  static changerPrix(id, prix){
+    console.log(id + " " + prix);
+    if((id != null) && (prix != null)){
+        http.changerPrix(id, prix, StockCtrl.changerPrixSuccessCallback, StockCtrl.error);
+    }
+  }
+
+  static changerPrixSuccessCallback(data){
+    prompt("Le prix a été mis à jour!");
     StockCtrl.chargeCatalogue;
   }
 
