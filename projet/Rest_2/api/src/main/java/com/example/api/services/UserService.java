@@ -77,8 +77,18 @@ boolean verif = false;
             BCryptPasswordEncoder decodeur = new BCryptPasswordEncoder();
 
             // verifier password en comparant les hash
-            if (decodeur.matches(password, UserPassword)) {
-                reponse = newUser.getPk();
+            try {
+                if (decodeur.matches(password, UserPassword)) {
+                    // Le mot de passe correspond, retourner une réponse réussie
+                    return  newUser.getPk();
+                } else {
+                    // Le mot de passe ne correspond pas
+                    return -1;
+                }
+            } catch (Exception e) {
+                // Capturer toute exception et loguer
+               
+                return -1;
             }
         }
         return reponse;

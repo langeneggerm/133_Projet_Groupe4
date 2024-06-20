@@ -59,7 +59,7 @@ public class Controller {
     @PostMapping(path = "/changeSolde")
     public ResponseEntity<String> changerSolde(@RequestParam int pk_user, @RequestParam Double montant) {
 
-      if(userService.setSoldeUser(pk_user, pk_user)){
+      if(userService.setSoldeUser(pk_user, montant)){
         return ResponseEntity.ok(new Gson().toJson(true));
       }else{
         return ResponseEntity.badRequest().body("Le montant est trop élevé");
@@ -69,9 +69,10 @@ public class Controller {
 
     @PostMapping(path = "/login")
     public ResponseEntity<String> login(@RequestBody Login credentials) {
-
-        int verif =  userService.login(credentials.getUsername(), credentials.getPassword());
-        if(verif>0){
+    
+         int verif =  userService.login(credentials.getUsername(), credentials.getPassword());
+          
+         if(verif>0){
             return ResponseEntity.ok(new Gson().toJson(verif));
         }else{
             return ResponseEntity.badRequest().body(null);
