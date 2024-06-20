@@ -10,8 +10,8 @@ import org.springframework.web.client.RestTemplate;
 
 public class Rest2Service{
     private final RestTemplate restTemplate = new RestTemplate();
-    //private final static String restUrl = "http://host.docker.internal:8082"; //à changer quand mis en place
-    private final static String restUrl = "http://rest-2:8080"; //à changer quand mis en place
+    private final static String restUrl = "http://host.docker.internal:8082"; //à changer quand mis en place
+    //private final static String restUrl = "http://localhost:8081/"; //à changer quand mis en place
     
     //test
     public Rest2Service(){

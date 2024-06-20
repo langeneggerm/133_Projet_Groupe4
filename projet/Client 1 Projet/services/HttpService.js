@@ -1,6 +1,6 @@
 class HttpService {
 
-    BASE_URL = "https://backend-4.emf4you.ch/";
+    BASE_URL = "http://localhost:8080/";
 
     constructor() {
     }

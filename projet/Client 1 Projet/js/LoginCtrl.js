@@ -6,17 +6,17 @@ $(document).ready(function() {
 class LoginCtrl{
 
     constructor(){
-        $("#btnConnect").on('click', this.login);
+        $("#btnConnect").on('click', LoginCtrl.login);
     }
 
     static login(){
-        username = $("#username").val();
-        pwd = $("#password").val();
-        http.login(pk, LoginCtrl.loginSuccess, LoginCtrl.error);
+        var username = $("#username").val();
+        var pwd = $("#password").val();
+        http.login(username, pwd, LoginCtrl.loginSuccess, LoginCtrl.error);
     }
 
     static loginSuccess(data){
-        prompt("Vous êtes désormais connecté!\nProfitez à présent de toutes les fonctionalités de manager");
+        alert("Vous êtes désormais connecté!\nProfitez à présent de toutes les fonctionalités de manager");
     }
 
     static error(data){

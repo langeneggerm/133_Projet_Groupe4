@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class Rest1Service{
     private RestTemplate restTemplate;
-    private final static String restUrl = "http://rest-1:8080";
+    private final static String restUrl = "http://host.docker.internal:8081/";
     
     public Rest1Service(){
         restTemplate = new RestTemplate();
