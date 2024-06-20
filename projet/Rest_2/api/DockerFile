@@ -4,8 +4,12 @@ VOLUME /tmp
 ARG JAVA_OPTS
 ENV JAVA_OPTS=$JAVA_OPTS
 #Conf Serv
+<<<<<<< HEAD
 #ENV DATABASE_URL=jdbc:mysql://localhost:3306/db_133_user
+=======
+#ENV DATABASE_URL=jdbc:mysql://mysql-nerf:3306/db_133_user
+>>>>>>> b52c3be81b33a367e6561b63cf2de524696f3dc1
 ENV DATABASE_URL=jdbc:mysql://host.docker.internal:3306/db_133_user
 COPY target/*.jar complete.jar
-EXPOSE 8080
+EXPOSE 8082
 ENTRYPOINT exec java $JAVA_OPTS -jar complete.jar
