@@ -10,9 +10,12 @@ var btn = document.getElementsByClassName("btnAcheter");
     })
 })
 
-function successCallback() {
+function successCallback(data) {
 
+    console.log(data);
     console.log("chargement des Nerfs effectué");
+
+
 
   }
 

@@ -28,7 +28,7 @@ function disconnect(successCallback, errorCallback) {
 function getCommande(pk_user, successCallback, errorCallBack) {
     $.ajax({
         type: "GET",
-        url: BASE_URL,
+        url: BASE_URL + "getCommandes",
         data: {
             pk: pk_user
         },
@@ -56,7 +56,7 @@ function changeSolde(pk_user, montant, successCallback, errorCallBack) {
 function acheterNerf(date, pk_nerf, pk_user, montant, successCallback, errorCallBack) {
     $.ajax({
         type: "POST",
-        url: BASE_URL,
+        url: BASE_URL + " achatNerf",
         data: {
             date: date,
             pk_nerf: pk_nerf,
@@ -75,4 +75,16 @@ function getAllNerf(successCallback,errorCallBack){
         success: successCallback,
         error: errorCallBack
     });
+}
+
+function getSolde(pk_user,successCallback,errorCallBack){
+    $.ajax({
+        type: "GET",
+        url: BASE_URL +"",
+        data:{
+            pk_user:pk_user
+        },
+        success: successCallback,
+        error: errorCallBack
+    }); 
 }

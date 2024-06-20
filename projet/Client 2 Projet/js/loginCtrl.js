@@ -16,7 +16,11 @@ $(document).ready(function () {
 });
 
 function successCallback(){
-    console.log("connecté");
+    var userAuth = document.getElementById("txtUser").value;
+    sessionStorage.setItem('user',userAuth)
+    var newURL = '../index.html';
+    alert("La connexion a réussi !");
+    window.location.href = newURL;
 }
 
 function errorCallBack() {
