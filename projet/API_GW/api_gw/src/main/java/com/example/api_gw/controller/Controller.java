@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 //test
 
-@CrossOrigin(origins = { "https://nevesantoniog.emf-informatique.ch" }, allowCredentials = "true")
+@CrossOrigin(origins = { "http://localhost:5500/", "http://localhost:53924/" }, allowCredentials = "true")
 @RestController
 public class Controller {
 
@@ -54,17 +54,14 @@ public class Controller {
         return rest1.getNerf(id);
     }
 
-    @PutMapping("/newStock")
+    @PostMapping("/newStock")
     public @ResponseBody ResponseEntity<String> fullStock(HttpSession session, @RequestParam int id,
             @RequestParam int addedQty) {
         ResponseEntity<String> result = null;
         if (session.getAttribute("login") != null) {
-            if (session.getAttribute("isAdm").equals(1)) {
-                result = rest1.fullNerfStock(id, addedQty);
-            } else {
-                HttpStatus httpCode = HttpStatus.UNAUTHORIZED;
-                result = new ResponseEntity<>("Only administrators are authorized to change the store.", httpCode);
-            }
+            // if(true){
+            // if(true){
+            result = rest1.fullNerfStock(id, addedQty);
         } else {
             HttpStatus httpCode = HttpStatus.UNAUTHORIZED;
             result = new ResponseEntity<>("You are not logged in. Try again when logged!", httpCode);
@@ -139,37 +136,48 @@ public class Controller {
     @GetMapping("/getCommandes")
     public @ResponseBody ResponseEntity<String> getAllCommandes(HttpSession session) {
         ResponseEntity<String> result = null;
-        if (session.getAttribute("login") != null) {
-            int idUser = Integer.parseInt(session.getAttribute("idUser").toString());
+       if (session.getAttribute("login") != null) {
+         int idUser = Integer.parseInt(session.getAttribute("idUser").toString());
             result = rest2.findAllCommandes(idUser);
-        }
+       }else{
+        result =new ResponseEntity<>("You are not logged in. Try again when logged!", HttpStatus.UNAUTHORIZED);
+       }
         return result;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody String username,@RequestBody String password, HttpSession session) {
+    public ResponseEntity<String> login(@RequestBody Login credentials, HttpSession session) {
         // MicroserviceUtil service = new MicroserviceUtil(null);
         ResponseEntity<String> result = null;
         if (session.getAttribute("login") == null) {
-            result = rest2.login(username, password);
-            if (result.getStatusCode().equals(HttpStatus.ACCEPTED)) {
+            result = rest2.login(credentials.getUsername(), credentials.getPassword());
+            if (!(result.getBody().equals("-1"))) {
                 session.setAttribute("login", "true");
+
+                session.setAttribute("idUser", result.getBody());
+            
                 // int bodyToInt = Integer.parseInt(result.getBody());
                 // ResponseEntity<String> user = rest2.getUser(bodyToInt);
                 // ObjectMapper map = new ObjectMapper();
-              /*  try {
-                    JsonNode json = map.readTree(user.getBody());
-                    int isAdmin = json.get("admin").asInt();
-                    int idUser = json.get("id").asInt();
-                    session.setAttribute("idUser", idUser);
-                    session.setAttribute("isAdm", isAdmin);
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                } */
+                /*
+                 * try {
+                 * JsonNode json = map.readTree(user.getBody());
+                 * int isAdmin = json.get("admin").asInt();
+                 * int idUser = json.get("id").asInt();
+                 * session.setAttribute("idUser", idUser);
+                 * session.setAttribute("isAdm", isAdmin);
+                 * } catch (JsonProcessingException e) {
+                 * e.printStackTrace();
+                 * }
+                 */
+            } else {
+                result = new ResponseEntity<>("kraidensialle not walide", HttpStatus.UNAUTHORIZED);
             }
         } else {
             result = new ResponseEntity<>("You already are logged in. Please logout.", HttpStatus.CONFLICT);
         }
+        // result = new ResponseEntity<>(credentials.getUsername() + " " +
+        // credentials.getPassword(), HttpStatus.ACCEPTED);
         return result;
     }
 
@@ -184,5 +192,6 @@ public class Controller {
         }
         return result;
     }
+
 
 }
