@@ -27,20 +27,22 @@ class HttpService {
         })
     }
 
-    login(login, mdp, successCallback, errorCallback) {
-        console.log("connect");
-        console.log(data)
+    login(login, passwd, successCallback, errorCallBack) {
+
         $.ajax({
             type: "POST",
-            url: BASE_URL + "login",
-            data: {
+            url: this.BASE_URL + "login",
+            contentType: "application/json",
+            data: JSON.stringify({
                 username: login,
-                password: mdp
+                password: passwd
+            }),
+            xhrFields: {
+                withCredentials: true
             },
             success: successCallback,
-            error: errorCallback
-        })
-    
+            error: errorCallBack
+        });
     }
 
     deconnecter(successCallback, errorCallback) {
@@ -48,19 +50,25 @@ class HttpService {
         $.ajax({
             type: "POST",
             url: this.BASE_URL + "logout",
+            xhrFields: {
+                withCredentials: true
+            },
             success: successCallback,
             error: errorCallback
         })
     }
 
     renouvelerStock(id, qty, successCallback, errorCallback) {
-        console.log("renouveler stock");
+        console.log("renouveler stock" + id + " " + qty);
         $.ajax({
-            type: "PUT",
+            type: "POST",
             url: this.BASE_URL + "newStock",
             data: {
                 id: id,
                 addedQty: qty
+            },
+            xhrFields: {
+                withCredentials: true
             },
             success: successCallback,
             error: errorCallback
@@ -75,6 +83,9 @@ class HttpService {
             data: {
                 id: id,
                 prix: prix
+            },
+            xhrFields: {
+                withCredentials: true
             },
             success: successCallback,
             error: errorCallback
@@ -93,6 +104,9 @@ class HttpService {
                 quantite: quantite, 
                 img: null,
                 prix: prix
+            },
+            xhrFields: {
+                withCredentials: true
             },
             success: successCallback,
             error: errorCallback

@@ -31,3 +31,18 @@ class AjoutCtrl{
         alert("erreur: " + data);
     }
 }
+
+function logout(){
+    deconnecter(successCallbackdisconnect,errorCallBackdiconnect);
+}
+
+function successCallbackdisconnect(){
+    sessionStorage.clear();
+    var newURL = '../index.html';
+    alert("La déconnexion a réussi !");
+    window.location.href = newURL;
+}
+
+function errorCallBackdiconnect(){
+alert("erreur")
+}

@@ -6,7 +6,18 @@ $(document).ready(function () {
 
 class StockCtrl {
   constructor() {
-    //$("#btnConnect").on("click", this.login);
+    $("#logout").on("click", StockCtrl.logout);
+  }
+
+  static logout(){
+    http.deconnecter(StockCtrl.successCallbackdisconnect,StockCtrl.error);
+  }
+  
+  static successCallbackdisconnect(){
+    sessionStorage.clear();
+    var newURL = '../index.html';
+    alert("La déconnexion a réussi !");
+    window.location.href = newURL;
   }
 
   static chargeCatalogue() {
@@ -82,8 +93,8 @@ class StockCtrl {
   }
 
   static ajoutStockSuccessCallback(data) {
-    prompt("Le stock a été mis à jour!");
-    StockCtrl.chargeCatalogue;
+    alert("Le stock a été mis à jour!");
+    StockCtrl.chargeCatalogue();
   }
 
   static changerPrix(id, prix){
@@ -103,3 +114,4 @@ class StockCtrl {
     alert("erreur: " + data);
   }
 }
+

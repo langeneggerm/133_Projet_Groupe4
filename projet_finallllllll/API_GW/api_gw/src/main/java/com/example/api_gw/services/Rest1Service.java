@@ -9,8 +9,8 @@ import org.springframework.web.client.RestTemplate;
 
 public class Rest1Service{
     private RestTemplate restTemplate;
-    //private final static String restUrl = "http://host.docker.internal:8081/";
-    private final static String restUrl = "http://localhost:8081/";
+    private final static String restUrl = "http://host.docker.internal:8081/";
+    //private final static String restUrl = "http://localhost:8081/";
     
     public Rest1Service(){
         restTemplate = new RestTemplate();
@@ -18,6 +18,8 @@ public class Rest1Service{
 
     public String getAllNerf() {
         String jsonResponse = restTemplate.getForObject(restUrl + "getAllNerf", String.class);
+        System.out.println("test2");
+
         return jsonResponse;
     }
     //trouver comment faire pour envoyer un body avec restTemplate
