@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Utilisateur - Magasin de Nerf</title>
+    <script type="text/javascript" src="../js/helpers/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../js/clientCtrl.js"></script>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="header__title">Profil Utilisateur</h1>
+        <nav class="nav">
+            <ul class="nav__list">
+                <li><a href="../index.html">Accueil</a></li>
+                <li><a href="produit.html">Produits</a></li>
+                <li><a onclick="logout()">Déconnexion</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main class="main">
+        <section class="section">
+            <h2 class="section__title">Informations Utilisateur</h2>
+            <div class="user-info">
+                <label id="username"><strong>Nom d'utilisateur:</strong></label>
+            </div>
+        </section>
+        
+        <section class="section" id="sectionCommande">
+            <h2 class="section__ title">Historique des Commandes</h2>
+
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="footer__text">&copy; 2024 Magasin de Nerf. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
